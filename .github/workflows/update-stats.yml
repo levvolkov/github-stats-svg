@@ -1,0 +1,59 @@
+name: Update GitHub Stats SVG
+
+on:
+  schedule:
+    - cron: '*/5 * * * *'  # запускается каждые 5 минут
+  workflow_dispatch:        # позволяет запустить вручную
+
+permissions:
+  contents: write           # Разрешение на запись в репозиторий
+
+jobs:
+  update-stats:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Проверка репозитория
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0       # Получает все ветки
+
+      - name: Настройка Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'  # Использование Node.js версии 18+
+
+      - name: Установка зависимостей
+        run: npm install
+
+      - name: Запуск сценария генерации статистики
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          node generate-cards/languageCard.js & node generate-cards/streakStatsCard.js
+
+      - name: Настройка Git идентичности
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Переход на главную ветку
+        run: |
+          git fetch origin main
+          git checkout main
+          git pull origin main
+
+      - name: Индексация и добавление SVG
+        run: |
+          git add language_statistics.svg stats_board.svg
+
+      - name: Коммит и пуш обновленного SVG
+        run: |
+          if git diff --cached --quiet; then
+            echo "Изменений не обнаружено, коммит пропущен.";
+          else
+            git commit -m "Обновление SVG с новыми данными"
+            git push origin main
+          fi
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
