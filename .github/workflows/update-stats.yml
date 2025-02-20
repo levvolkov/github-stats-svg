@@ -30,7 +30,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          node generate-cards/languageCard.js & node generate-cards/streakStatsCard.js
+          node generate-cards/languageCard.js
+          node generate-cards/streakStatsCard.js
 
       - name: Настройка Git идентичности
         run: |
@@ -45,7 +46,7 @@ jobs:
 
       - name: Индексация и добавление SVG
         run: |
-          git add language_statistics.svg stats_board.svg
+          git add svg/*.svg
 
       - name: Коммит и пуш обновленного SVG
         run: |
