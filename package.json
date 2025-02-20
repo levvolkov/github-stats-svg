@@ -1,0 +1,9 @@
+{
+  "name": "github-stats-svg",
+  "version": "1.1.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "node generate-cards/languageCard.js & node generate-cards/streakStatsCard.js"
+  },
+  "dependencies": {}
+}
