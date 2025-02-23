@@ -30,8 +30,10 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          node generate-cards/languageCard.js
-          node generate-cards/streakStatsCard.js
+          node generate-cards/githubStats.js
+          node generate-cards/languageStats.js
+          node generate-cards/streakStats.js
+          node generate-cards/trafficStats.js
 
       - name: Настройка Git идентичности
         run: |

@@ -1,5 +1,16 @@
-<img src="svg/stats_board.svg#gh-dark-mode-only" />
-<img src="svg/stats_board.svg#gh-light-mode-only" />
+<p align="center">
+<img src="svg/traffic_stats.svg#gh-dark-mode-only" />
+<img src="svg/traffoc_stats.svg#gh-light-mode-only" />
+</p>
 
-<img src="svg/language_statistics.svg#gh-dark-mode-only" />
-<img src="svg/language_statistics.svg#gh-light-mode-only" />
+<p align="center">
+<img src="svg/streak_stats.svg#gh-dark-mode-only" />
+<img src="svg/streak_stats.svg#gh-light-mode-only" />
+</p>
+
+<p align="center">
+<img src="svg/language_stats.svg#gh-dark-mode-only" />
+<img src="svg/language_stats.svg#gh-light-mode-only" />
+<img src="svg/github_stats.svg#gh-dark-mode-only" />
+<img src="svg/github_stats.svg#gh-light-mode-only" />
+</p>

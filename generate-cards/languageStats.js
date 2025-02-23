@@ -14,6 +14,28 @@ if (!token) {
 
 const GRAPHQL_API = "https://api.github.com/graphql"; // GitHub GraphQL API endpoint
 
+// Цвета для светлой и темной тем
+const colors = {
+  light: {
+    background: "none", // Прозрачный фон
+    title: "#006AFF", // Цвет заголовка
+    lang: "#000000", // Цвет текста языка
+    percent: "rgb(88, 96, 105)", // Цвет процентов
+    outline: "rgb(225, 228, 232)", // Цвет обводки
+    progressBackground: "#e1e4e8", // Цвет фона прогресс-бара
+    progressItemOutline: "rgb(225, 228, 232)", // Цвет обводки элементов прогресс-бара
+  },
+  dark: {
+    background: "none", // Прозрачный фон
+    title: "#006AFF", // Цвет заголовка
+    lang: "#c9d1d9", // Цвет текста языка
+    percent: "#8b949e", // Цвет процентов
+    outline: "rgb(225, 228, 232)", // Цвет обводки
+    progressBackground: "rgba(110, 118, 129, 0.4)", // Цвет фона прогресс-бара
+    progressItemOutline: "#393f47", // Цвет обводки элементов прогресс-бара
+  },
+};
+
 // Функция для выполнения запросов к GitHub GraphQL API
 async function fetchFromGitHub(query, variables = {}) {
   const response = await fetch(GRAPHQL_API, {
@@ -104,18 +126,6 @@ function generateSVG(languageStats) {
   const svgWidth = 360; // Ширина SVG
   const svgHeight = 210; // Высота SVG
 
-  // Цвета для фона и текста (можно изменить)
-  const backgroundLightTheme = "none"; // Цвет светлого фона SVG
-  const backgroundDarkTheme = "none" //"#0d1117"; // Цвет темного фона SVG
-  const titleLightTheme = "#000000"; // Цвет заголовка светлого фона
-  const titleDarkTheme = "#c9d1d9"; // Цвет заголовка темного фона
-  const langLightTheme = "#000000"; // Цвет текста языка светлого фона
-  const langDarkTheme = "#c9d1d9"; // Цвет текста языка темного фона
-  const percentLightTheme = "rgb(88, 96, 105)"; // Цвет процентов светлого фона
-  const percentDarkTheme = "#8b949e"; // Цвет процентов темного фона
-  const outlineLightTheme = "rgb(225, 228, 232)"; // Цвет обводки светлого фона
-  const outlineDarkTheme = "rgb(225, 228, 232)"; // Цвет обводки темного фона
-
   let svgContent = `<svg id="gh-dark-mode-only" width="${svgWidth}" height="${svgHeight}" xmlns="http://www.w3.org/2000/svg">
 <style>
 svg {
@@ -127,16 +137,16 @@ svg {
 #background {
   width: calc(100% - 10px);
   height: calc(100% - 10px);
-  fill: ${backgroundLightTheme}; 
-  stroke: ${outlineLightTheme};
+  fill: ${colors.light.background}; 
+  stroke: ${colors.light.outline};
   stroke-width: 1px;
   rx: 6px;
   ry: 6px;
 }
 
 #gh-dark-mode-only:target #background {
-  fill: ${backgroundDarkTheme};
-  stroke: ${outlineDarkTheme};
+  fill: ${colors.dark.background};
+  stroke: ${colors.dark.outline};
   stroke-width: 0.5px;
 }
 
@@ -151,13 +161,11 @@ h2 {
   line-height: 24px;
   font-size: 16px;
   font-weight: 600;
-  color: ${titleLightTheme}; /* Цвет заголовка */
-  fill: ${titleLightTheme};
+  color: ${colors.light.title}; /* Цвет заголовка */
 }
 
 #gh-dark-mode-only:target h2 {
-  color: ${titleDarkTheme}; /* Цвет заголовка для темной темы */
-  fill: ${titleDarkTheme};
+  color: ${colors.dark.title}; /* Цвет заголовка для темной темы */
 }
 
 ul {
@@ -190,55 +198,54 @@ div.ellipsis {
 }
 
 .octicon {
-  fill: rgb(88, 96, 105);
+  fill: ${colors.light.percent};
   margin-right: 0.5ch;
   vertical-align: top;
 }
 
 #gh-dark-mode-only:target .octicon {
-  color: #8b949e;
-  fill: #8b949e;
+  fill: ${colors.dark.percent};
 }
 
 .progress {
   display: flex;
   height: 8px;
   overflow: hidden;
-  background-color: #e1e4e8; 
+  background-color: ${colors.light.progressBackground}; 
   border-radius: 6px;
   outline: 1px solid transparent;
   margin-bottom: 1em;
 }
 
 #gh-dark-mode-only:target .progress {
-  background-color: rgba(110, 118, 129, 0.4); 
+  background-color: ${colors.dark.progressBackground}; 
 }
 
 .progress-item {
-  outline: 2px solid rgb(225, 228, 232);
+  outline: 2px solid ${colors.light.progressItemOutline};
   border-collapse: collapse;
 }
 
 #gh-dark-mode-only:target .progress-item {
-  outline: 2px solid #393f47;
+  outline: 2px solid ${colors.dark.progressItemOutline};
 }
 
 .lang {
   font-weight: 600;
   margin-right: 4px;
-  color: ${langLightTheme}; 
+  color: ${colors.light.lang}; 
 }
 
 #gh-dark-mode-only:target .lang {
-  color: ${langDarkTheme}; 
+  color: ${colors.dark.lang}; 
 }
 
 .percent {
-  color: ${percentLightTheme};
+  color: ${colors.light.percent};
 }
 
 #gh-dark-mode-only:target .percent {
-  color: ${percentDarkTheme};
+  color: ${colors.dark.percent};
 }
 </style>
 <g>
@@ -303,24 +310,24 @@ async function createLanguageStatisticsSVG() {
     }
 
     // Сохраняем SVG в файл внутри папки "svg"
-    const filePath = path.join(dir, "language_statistics.svg");
+    const filePath = path.join(dir, "language_stats.svg");
     fs.writeFileSync(filePath, svg);
 
     console.log(`Создан svg файл: ${filePath}`);
   } catch (error) {
-    console.error("Error:", error);
+    console.error("Error generating SVG:", error);
 
     // Генерация резервного SVG в случае ошибки
-        const fallbackSVG = `
+    const fallbackSVG = `
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 200">
           <rect width="100%" height="100%" fill="#f0f6fc" rx="10" />
           <text x="50%" y="45%" text-anchor="middle" font-family="sans-serif" fill="#000" font-size="16">
             Error loading GitHub stats
           </text>
         </svg>`;
-    
-        const fallbackPath = path.join("svg", "error_language_statistics.svg");
-        fs.writeFileSync(fallbackPath, fallbackSVG);
+
+    const fallbackPath = path.join("svg", "error_language_stats.svg");
+    fs.writeFileSync(fallbackPath, fallbackSVG);
   }
 }
 

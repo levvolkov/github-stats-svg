@@ -1,5 +1,5 @@
 const fs = require("fs");
-const path = require("path"); // Добавляем модуль path
+const path = require("path");
 
 const username = "levvolkov";
 const token = process.env.GITHUB_TOKEN;
@@ -12,6 +12,30 @@ if (!token) {
 }
 
 const GRAPHQL_API = "https://api.github.com/graphql";
+
+// Цвета для светлой и темной темы
+const colors = {
+  light: {
+    background: "none", // Прозрачный фон
+    stat: "#000000", // Цвет статистики
+    label: "#000000", // Цвет меток
+    date: "#006AFF", // Цвет дат
+    divider: "#006AFF", // Цвет разделителей
+    ring: "#006AFF", // Цвет кольца
+    fire: "#006AFF", // Цвет иконки огня
+    footer: "#000000", // Цвет футера
+  },
+  dark: {
+    background: "none", // Прозрачный фон
+    stat: "#c9d1d9", // Цвет статистики
+    label: "#c9d1d9", // Цвет меток
+    date: "#006AFF", // Цвет дат
+    divider: "#006AFF", // Цвет разделителей
+    ring: "#006AFF", // Цвет кольца
+    fire: "#006AFF", // Цвет иконки огня
+    footer: "#c9d1d9", // Цвет футера
+  },
+};
 
 // Вспомогательная функция для выполнения запросов GraphQL
 async function fetchFromGitHub(query, variables = {}) {
@@ -257,89 +281,102 @@ async function generateSVG() {
       })
       .replace(",", ""); // Убираем запятую после года
 
+    function generateStyles(theme) {
+      return `
+    --background: ${colors[theme].background};
+    --stat-color: ${colors[theme].stat};
+    --label-color: ${colors[theme].label};
+    --date-color: ${colors[theme].date};
+    --divider-color: ${colors[theme].divider};
+    --ring-color: ${colors[theme].ring};
+    --fire-color: ${colors[theme].fire};
+    --footer-color: ${colors[theme].footer};
+  `;
+    }
+
     const svgContent = `
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
 style="isolation: isolate" viewBox="0 0 600 200" width="600px" height="200px">
 <style>
-/* Dark theme by default */
-:root {
-  --background: none;
-  --stat-color: #c9d1d9;
-  --label-color: #c9d1d9;
-  --date-color: #006AFF;
-  --divider-color: #006AFF;
-  --ring-color: #006AFF;
-  --fire-color: #006AFF;
-  --footer-color: #c9d1d9;
-}
-
-@media (prefers-color-scheme: light) {
+  /* Dark theme by default */
   :root {
-    --background: none;
-    --stat-color: #000000;
-    --label-color: #000000;
-    --date-color: #006AFF;
-    --divider-color: #006AFF;
-    --ring-color: #006AFF;
-    --fire-color: #006AFF;
-    --footer-color: #000000;
+    ${generateStyles("dark")}
   }
-}
 
-@keyframes fadein {
-  0% { opacity: 0; }
-  100% { opacity: 1; }
-}
+  @media (prefers-color-scheme: light) {
+    :root {
+      ${generateStyles("light")}
+    }
+  }
 
-@keyframes currstreak {
-  0% { font-size: 3px; opacity: 0.2; }
-  80% { font-size: 34px; opacity: 1; }
-  100% { font-size: 28px; opacity: 1; }
-}
+  @keyframes fadein {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+  }
 
-.stat {
-  font: bold 28px sans-serif;
-  fill: var(--stat-color);
-}
+  @keyframes currstreak {
+    0% { font-size: 3px; opacity: 0.2; }
+    80% { font-size: 34px; opacity: 1; }
+    100% { font-size: 28px; opacity: 1; }
+  }
 
-.label {
-  font: bold 14px sans-serif;
-  fill: var(--label-color);
-}
+  .stat {
+    font: bold 28px sans-serif;
+    fill: var(--stat-color);
+  }
 
-.date {
-  font: 12px sans-serif;
-  fill: var(--date-color);
-}
+  .label {
+    font: bold 14px sans-serif;
+    fill: var(--label-color);
+  }
 
-.divider {
-  stroke: var(--divider-color);
-  stroke-width: 1;
-}
+  .date {
+    font: 12px sans-serif;
+    fill: var(--date-color);
+  }
 
-.footer {
-  font: 10px sans-serif;
-  font-weight: 100;
-  fill: var(--footer-color);
-}
+  .divider {
+    stroke: var(--divider-color);
+    stroke-width: 1;
+  }
 
-.background {
-  fill: var(--background);
-  stroke: rgb(225, 228, 232);
-  stroke-width: 0.7px;
-}
+  .footer {
+    font: 10px sans-serif;
+    font-weight: 100;
+    fill: var(--footer-color);
+  }
 
-.ring {
-  stroke: var(--ring-color);
-}
+  .background {
+    fill: var(--background);
+    stroke: rgb(225, 228, 232);
+    stroke-width: 0.7px;
+    rx: 6px; /* Скругление углов */
+    ry: 6px; /* Скругление углов */
+  }
 
-.fire {
-  fill: var(--fire-color);
-}
+  .ring {
+    stroke: var(--ring-color);
+  }
+
+  .fire {
+    fill: var(--fire-color);
+  }
+
+  /* Стили для рамки */
+  .border {
+    fill: none;
+    stroke: rgb(225, 228, 232);
+    stroke-width: 0.3px;
+    rx: 6px; 
+    ry: 6px; 
+  }
 </style>
 
 <!-- Background -->
 <rect width="100%" height="100%" class="background" rx="15" />
+
+<!-- Border -->
+<rect width="calc(100% - 2px)" height="calc(100% - 2px)" x="1" y="1" class="border" />
 
 <!-- Divider Lines -->
 <line x1="200" y1="25" x2="200" y2="175" class="divider" />
@@ -432,12 +469,12 @@ C 4.51 16.85 2.36 19 -0.29 19 Z"
 `;
 
     // Сохраняем в папку svg
-    const outputPath = path.join("svg", "stats_board.svg");
+    const outputPath = path.join("svg", "streak_stats.svg");
     fs.writeFileSync(outputPath, svgContent);
     console.log(`Создан svg файл: ${outputPath}`);
   } catch (error) {
     console.error("Error generating SVG:", error);
-    
+
     // Генерация резервного SVG в случае ошибки
     const fallbackSVG = `
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 200">
@@ -447,7 +484,7 @@ C 4.51 16.85 2.36 19 -0.29 19 Z"
       </text>
     </svg>`;
 
-    const fallbackPath = path.join("svg", "error_stats_board.svg");
+    const fallbackPath = path.join("svg", "error_streak_stats.svg");
     fs.writeFileSync(fallbackPath, fallbackSVG);
   }
 }
