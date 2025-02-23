@@ -1,5 +1,5 @@
 
-<svg id="gh-dark-mode-only" width="500" height="50" xmlns="http://www.w3.org/2000/svg">
+<svg id="gh-dark-mode-only" width="500" height="200" xmlns="http://www.w3.org/2000/svg">
 <style>
 svg {
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji;
@@ -78,15 +78,15 @@ th {
 }
 
 td {
-  margin-bottom: 16px;
-  margin-top: 8px;
-  padding: 0.25em;
-  font-size: 12px;
-  line-height: 18px;
+  margin-bottom: 16px; /* Отступ снизу */
+  margin-top: 8px; /* Отступ сверху */
+  padding: 0.25em; /* Внутренний отступ (padding) */
+  font-size: 12px; /* Размер шрифта текста в ячейке */
+  line-height: 18px; /* Межстрочный интервал текста */
   color: #000000;
-  opacity: 0;
-  transform: translateY(20px);
-  animation: slideIn 0.5s ease-out forwards;
+  opacity: 0; /* Начальная прозрачность (элемент невидим) */
+  transform: translateY(20px); /* Сдвиг элемента вниз на 20px (для анимации) */
+  animation: slideIn 0.5s ease-out forwards; /* Анимация появления (slideIn) длительностью 0.5s */
 }
 
 #gh-dark-mode-only:target td {
@@ -134,6 +134,7 @@ td {
 <table>
 <thead><tr>
 <th colspan="2">
+  <!-- Иконка GitHub -->
   <svg class="github-icon" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
     <path fill-rule="evenodd"  d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path>
   </svg>
@@ -178,12 +179,12 @@ td {
     <svg class="folder-icons" width="16" height="16" viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
       <path d="M 6 4 C 4.3545455 4 3 5.3545455 3 7 L 3 16 L 3 43 C 3 44.645455 4.3545455 46 6 46 L 44 46 C 45.645455 46 47 44.645455 47 43 L 47 16 L 47 11 C 47 9.3545455 45.645455 8 44 8 L 19 8 C 19.06944 8 18.95032 7.99708 18.705078 7.7167969 C 18.459833 7.4365165 18.160156 6.9707031 17.847656 6.4707031 C 17.535156 5.9707031 17.209833 5.4365165 16.798828 4.9667969 C 16.387823 4.4970773 15.819444 4 15 4 L 6 4 z M 6 6 L 15 6 C 14.93056 6 15.04968 6.00292 15.294922 6.2832031 C 15.540167 6.5634835 15.839844 7.0292969 16.152344 7.5292969 C 16.464844 8.0292969 16.790167 8.5634835 17.201172 9.0332031 C 17.612177 9.5029227 18.180556 10 19 10 L 44 10 C 44.554545 10 45 10.445455 45 11 L 45 13.1875 C 44.685079 13.07397 44.351946 13 44 13 L 6 13 C 5.6480538 13 5.3149207 13.07397 5 13.1875 L 5 7 C 5 6.4454545 5.4454545 6 6 6 z M 6 15 L 44 15 C 44.554545 15 45 15.445455 45 16 L 45 43 C 45 43.554545 44.554545 44 44 44 L 6 44 C 5.4454545 44 5 43.554545 5 43 L 5 16 C 5 15.445455 5.4454545 15 6 15 z" transform="translate(0, -2)" />
     </svg>
-    <span style="font-weight: 600;">course-work</span>
+    <span style="font-weight: 600;">espresso</span>
   </td>
   <td style="animation-delay: 300ms">
   <span class="unique-count" style="font-weight: 600;">5</span>
   <span class="visitors-text"> visitors </span>
-  <span class="date-range">(09.02 - 16.02)</span>
+  <span class="date-range">(09.02 - 20.02)</span>
 </td>
 </tr>
 
@@ -193,12 +194,12 @@ td {
     <svg class="folder-icons" width="16" height="16" viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
       <path d="M 6 4 C 4.3545455 4 3 5.3545455 3 7 L 3 16 L 3 43 C 3 44.645455 4.3545455 46 6 46 L 44 46 C 45.645455 46 47 44.645455 47 43 L 47 16 L 47 11 C 47 9.3545455 45.645455 8 44 8 L 19 8 C 19.06944 8 18.95032 7.99708 18.705078 7.7167969 C 18.459833 7.4365165 18.160156 6.9707031 17.847656 6.4707031 C 17.535156 5.9707031 17.209833 5.4365165 16.798828 4.9667969 C 16.387823 4.4970773 15.819444 4 15 4 L 6 4 z M 6 6 L 15 6 C 14.93056 6 15.04968 6.00292 15.294922 6.2832031 C 15.540167 6.5634835 15.839844 7.0292969 16.152344 7.5292969 C 16.464844 8.0292969 16.790167 8.5634835 17.201172 9.0332031 C 17.612177 9.5029227 18.180556 10 19 10 L 44 10 C 44.554545 10 45 10.445455 45 11 L 45 13.1875 C 44.685079 13.07397 44.351946 13 44 13 L 6 13 C 5.6480538 13 5.3149207 13.07397 5 13.1875 L 5 7 C 5 6.4454545 5.4454545 6 6 6 z M 6 15 L 44 15 C 44.554545 15 45 15.445455 45 16 L 45 43 C 45 43.554545 44.554545 44 44 44 L 6 44 C 5.4454545 44 5 43.554545 5 43 L 5 16 C 5 15.445455 5.4454545 15 6 15 z" transform="translate(0, -2)" />
     </svg>
-    <span style="font-weight: 600;">espresso</span>
+    <span style="font-weight: 600;">course-work</span>
   </td>
   <td style="animation-delay: 450ms">
-  <span class="unique-count" style="font-weight: 600;">5</span>
+  <span class="unique-count" style="font-weight: 600;">4</span>
   <span class="visitors-text"> visitors </span>
-  <span class="date-range">(09.02 - 20.02)</span>
+  <span class="date-range">(09.02 - 16.02)</span>
 </td>
 </tr>
 
