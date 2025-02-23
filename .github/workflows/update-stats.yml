@@ -30,12 +30,10 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          set -e  # Прекратить выполнение при первой ошибке
-          echo "Запуск генерации статистики..."
-          node generate-cards/githubStats.js || { echo "Ошибка при запуске githubStats.js"; exit 1; }
-          node generate-cards/languageStats.js || { echo "Ошибка при запуске languageStats.js"; exit 1; }
-          node generate-cards/streakStats.js || { echo "Ошибка при запуске streakStats.js"; exit 1; }
-          node generate-cards/trafficStats.js || { echo "Ошибка при запуске trafficStats.js"; exit 1; }
+          node generate-cards/githubStats.js 
+          node generate-cards/languageStats.js 
+          node generate-cards/streakStats.js 
+          node generate-cards/trafficStats.js 
 
       - name: Настройка Git идентичности
         run: |
