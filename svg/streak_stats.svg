@@ -1,40 +1,15 @@
-
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-style="isolation: isolate" viewBox="0 0 600 200" width="600px" height="200px">
+<svg id="gh-dark-mode-only" width="600" height="200" xmlns="http://www.w3.org/2000/svg">
 <style>
-  /* Dark theme by default */
-  :root {
+svg {
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji;
+  font-size: 14px;
+  line-height: 21px;
+}
     
-    --background: none;
-    --stat-color: #c9d1d9;
-    --label-color: #c9d1d9;
-    --date-color: #006AFF;
-    --divider-color: #006AFF;
-    --ring-color: #006AFF;
-    --fire-color: #006AFF;
-    --footer-color: #c9d1d9;
-  
-  }
-
-  @media (prefers-color-scheme: light) {
-    :root {
-      
-    --background: none;
-    --stat-color: #000000;
-    --label-color: #000000;
-    --date-color: #006AFF;
-    --divider-color: #006AFF;
-    --ring-color: #006AFF;
-    --fire-color: #006AFF;
-    --footer-color: #000000;
-  
-    }
-  }
-
   @keyframes fadein {
-    0% { opacity: 0; }
-    100% { opacity: 1; }
-  }
+      0% { opacity: 0; }
+      100% { opacity: 1; }
+    }
 
   @keyframes currstreak {
     0% { font-size: 3px; opacity: 0.2; }
@@ -44,44 +19,76 @@ style="isolation: isolate" viewBox="0 0 600 200" width="600px" height="200px">
 
   .stat {
     font: bold 28px sans-serif;
-    fill: var(--stat-color);
+    fill: #000000;
+  }
+
+  #gh-dark-mode-only:target .stat {
+    fill: #c9d1d9;
   }
 
   .label {
     font: bold 14px sans-serif;
-    fill: var(--label-color);
+    fill: #000000;
+  }
+
+  #gh-dark-mode-only:target .label {
+    fill: #c9d1d9;
   }
 
   .date {
     font: 12px sans-serif;
-    fill: var(--date-color);
+    fill: #006AFF;
+  }
+
+  #gh-dark-mode-only:target .date {
+    fill: #006AFF;
   }
 
   .divider {
-    stroke: var(--divider-color);
+    stroke: #006AFF;
     stroke-width: 1;
+  }
+
+  #gh-dark-mode-only:target .divider {
+    stroke: #006AFF;
   }
 
   .footer {
     font: 10px sans-serif;
     font-weight: 100;
-    fill: var(--footer-color);
+    fill: #000000;
   }
 
-  .background {
-    fill: var(--background);
+  #gh-dark-mode-only:target .footer {
+    fill: #c9d1d9;
+  }
+
+  #background {
+    fill: none;
     stroke: rgb(225, 228, 232);
     stroke-width: 0.7px;
     rx: 6px; /* Скругление углов */
     ry: 6px; /* Скругление углов */
   }
 
+  #gh-dark-mode-only:target #background {
+   fill: none;
+   }
+
   .ring {
-    stroke: var(--ring-color);
+    stroke: #006AFF;
+  }
+
+  #gh-dark-mode-only:target .ring {
+    stroke: #006AFF;
   }
 
   .fire {
-    fill: var(--fire-color);
+    fill: #006AFF;
+  }
+
+  #gh-dark-mode-only:target .fire {
+    fill: #006AFF;
   }
 
   /* Стили для рамки */
@@ -95,7 +102,7 @@ style="isolation: isolate" viewBox="0 0 600 200" width="600px" height="200px">
 </style>
 
 <!-- Background -->
-<rect width="100%" height="100%" class="background" rx="15" />
+<rect width="100%" height="100%" id="background" rx="15" />
 
 <!-- Border -->
 <rect width="calc(100% - 2px)" height="calc(100% - 2px)" x="1" y="1" class="border" />
@@ -107,13 +114,13 @@ style="isolation: isolate" viewBox="0 0 600 200" width="600px" height="200px">
 <!-- Section 1: Total Contributions -->
 <g transform="translate(100, 70)">
   <text class="stat" y="15" text-anchor="middle" style="opacity: 0; animation: fadein 0.5s linear forwards 0.6s">
-    1989
+    2018
   </text>
   <text class="label" y="55" text-anchor="middle" style="opacity: 0; animation: fadein 0.5s linear forwards 0.7s">
     Total Contributions
   </text>
   <text class="date" y="85" text-anchor="middle" style="opacity: 0; animation: fadein 0.5s linear forwards 0.8s">
-    Jul 26, 2021 - Feb 24, 2025
+    Jul 26, 2021 - Feb 25, 2025
   </text>
 </g>
 
@@ -141,7 +148,7 @@ style="isolation: isolate" viewBox="0 0 600 200" width="600px" height="200px">
   </text>
 
   <text class="date" y="95" text-anchor="middle" style="opacity: 0; animation: fadein 0.5s linear forwards 1.0s">
-    Feb 18, 2025 - Feb 24, 2025
+    Feb 18, 2025 - Feb 25, 2025
   </text>
 
   <!-- Fire icon -->
@@ -165,20 +172,20 @@ C 4.51 16.85 2.36 19 -0.29 19 Z"
 <!-- Section 3: Longest Streak -->
 <g transform="translate(500, 70)">
   <text class="stat" y="15" text-anchor="middle" style="opacity: 0; animation: fadein 0.5s linear forwards 1.2s">
-    8
+    9
   </text>
   <text class="label" y="55" text-anchor="middle" style="opacity: 0; animation: fadein 0.5s linear forwards 1.3s">
     Longest Streak
   </text>
   <text class="date" y="85" text-anchor="middle" style="opacity: 0; animation: fadein 0.5s linear forwards 1.4s">
-    Jul 26, 2024 - Aug 2, 2024
+    Jul 25, 2024 - Aug 2, 2024
   </text>
 </g>
 
 <!-- Footer -->
 <g transform="translate(300, 185)">
   <text class="footer" x="0" y="5" text-anchor="middle" style="opacity: 0; animation: fadein 0.5s linear forwards 1.6s">
-    Updated last at: Feb 24 2025, 16:51
+    Updated last at: Feb 25 2025, 01:24
   </text>
 </g>
 </svg>
