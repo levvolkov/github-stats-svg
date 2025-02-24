@@ -6,7 +6,7 @@ on:
   workflow_dispatch:        # позволяет запустить вручную
 
 permissions:
-  contents: write           # Разрешение на запись в репозиторий
+  contents: write           # Разрешение на запись в репозитории
 
 jobs:
   update-stats:
@@ -31,10 +31,10 @@ jobs:
           ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          node generate-cards/githubStats.js
-          node generate-cards/languageStats.js
-          node generate-cards/streakStats.js
-          node generate-cards/trafficStats.js
+          node generate-cards/githubStats.js 
+          node generate-cards/languageStats.js 
+          node generate-cards/streakStats.js 
+          node generate-cards/trafficStats.js 
 
       - name: Настройка Git идентичности
         run: |
