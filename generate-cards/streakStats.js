@@ -1,12 +1,12 @@
 const fs = require("fs");
 const path = require("path");
 
-const username = "levvolkov";
-const token = process.env.GITHUB_TOKEN;
+const username = process.env.GITHUB_ACTOR;
+const token = process.env.ACCESS_TOKEN; 
 
 if (!token) {
   console.error(
-    "Error: GITHUB_TOKEN is not defined in the environment variables."
+    "Error: ACCESS_TOKEN is not defined in the environment variables."
   );
   process.exit(1);
 }

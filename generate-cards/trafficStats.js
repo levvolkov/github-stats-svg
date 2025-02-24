@@ -2,11 +2,11 @@ const fs = require("fs");
 const path = require("path");
 
 // GitHub username и токен из переменных окружения
-const username = "levvolkov"; // Замените на ваш GitHub username
-const token = process.env.GITHUB_TOKEN; // GitHub Token из переменных окружения
+const username = process.env.GITHUB_ACTOR;
+const token = process.env.ACCESS_TOKEN; 
 
 if (!token) {
-  console.error("Ошибка: GITHUB_TOKEN не определен в переменных окружения.");
+  console.error("Ошибка: ACCESS_TOKEN не определен в переменных окружения.");
   process.exit(1);
 }
 
@@ -251,15 +251,15 @@ th {
 }
 
 td {
-  margin-bottom: 16px; /* Отступ снизу */
-  margin-top: 8px; /* Отступ сверху */
-  padding: 0.25em; /* Внутренний отступ (padding) */
-  font-size: 12px; /* Размер шрифта текста в ячейке */
-  line-height: 18px; /* Межстрочный интервал текста */
+  margin-bottom: 16px; 
+  margin-top: 8px; 
+  padding: 0.25em; 
+  font-size: 12px; 
+  line-height: 18px; 
   color: ${colors.light.repositoryText};
-  opacity: 0; /* Начальная прозрачность (элемент невидим) */
-  transform: translateY(20px); /* Сдвиг элемента вниз на 20px (для анимации) */
-  animation: slideIn 0.5s ease-out forwards; /* Анимация появления (slideIn) длительностью 0.5s */
+  opacity: 0; 
+  transform: translateY(20px); 
+  animation: slideIn 0.5s ease-out forwards; 
 }
 
 #gh-dark-mode-only:target td {

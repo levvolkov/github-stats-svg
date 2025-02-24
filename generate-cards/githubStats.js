@@ -2,11 +2,11 @@ const fs = require("fs");
 const path = require("path");
 
 // GitHub username и токен из переменных окружения
-const username = "levvolkov"; // Замените на ваш GitHub username
-const token = process.env.GITHUB_TOKEN; // GitHub Token из переменных окружения
+const username = process.env.GITHUB_ACTOR; 
+const token = process.env.ACCESS_TOKEN; 
 
 if (!token) {
-  console.error("Ошибка: GITHUB_TOKEN не определен в переменных окружения.");
+  console.error("Ошибка: ACCESS_TOKEN не определен в переменных окружения.");
   process.exit(1);
 }
 

@@ -5,5 +5,7 @@
   "scripts": {
     "start": "node generate-cards/streakStats.js & node generate-cards/languageStats.js & node generate-cards/githubStats.js & node generate-cards/trafficStats.js"
   },
-  "dependencies": {}
+  "dependencies": {
+    
+  }
 }

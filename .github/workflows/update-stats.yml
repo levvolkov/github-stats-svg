@@ -28,6 +28,7 @@ jobs:
 
       - name: Запуск сценария генерации статистики
         env:
+          ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           node generate-cards/githubStats.js
