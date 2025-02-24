@@ -2,7 +2,7 @@ const fs = require("fs");
 const path = require("path");
 
 const username = process.env.GITHUB_ACTOR;
-const token = process.env.ACCESS_TOKEN; 
+const token = process.env.ACCESS_TOKEN;
 
 if (!token) {
   console.error(
@@ -281,38 +281,18 @@ async function generateSVG() {
       })
       .replace(",", ""); // Убираем запятую после года
 
-    function generateStyles(theme) {
-      return `
-    --background: ${colors[theme].background};
-    --stat-color: ${colors[theme].stat};
-    --label-color: ${colors[theme].label};
-    --date-color: ${colors[theme].date};
-    --divider-color: ${colors[theme].divider};
-    --ring-color: ${colors[theme].ring};
-    --fire-color: ${colors[theme].fire};
-    --footer-color: ${colors[theme].footer};
-  `;
-    }
-
-    const svgContent = `
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-style="isolation: isolate" viewBox="0 0 600 200" width="600px" height="200px">
+    let svgContent = `<svg id="gh-dark-mode-only" width="600" height="200" xmlns="http://www.w3.org/2000/svg">
 <style>
-  /* Dark theme by default */
-  :root {
-    ${generateStyles("dark")}
-  }
-
-  @media (prefers-color-scheme: light) {
-    :root {
-      ${generateStyles("light")}
-    }
-  }
-
+svg {
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji;
+  font-size: 14px;
+  line-height: 21px;
+}
+    
   @keyframes fadein {
-    0% { opacity: 0; }
-    100% { opacity: 1; }
-  }
+      0% { opacity: 0; }
+      100% { opacity: 1; }
+    }
 
   @keyframes currstreak {
     0% { font-size: 3px; opacity: 0.2; }
@@ -322,44 +302,76 @@ style="isolation: isolate" viewBox="0 0 600 200" width="600px" height="200px">
 
   .stat {
     font: bold 28px sans-serif;
-    fill: var(--stat-color);
+    fill: ${colors.light.stat};
+  }
+
+  #gh-dark-mode-only:target .stat {
+    fill: ${colors.dark.stat};
   }
 
   .label {
     font: bold 14px sans-serif;
-    fill: var(--label-color);
+    fill: ${colors.light.label};
+  }
+
+  #gh-dark-mode-only:target .label {
+    fill: ${colors.dark.label};
   }
 
   .date {
     font: 12px sans-serif;
-    fill: var(--date-color);
+    fill: ${colors.light.date};
+  }
+
+  #gh-dark-mode-only:target .date {
+    fill: ${colors.dark.date};
   }
 
   .divider {
-    stroke: var(--divider-color);
+    stroke: ${colors.light.divider};
     stroke-width: 1;
+  }
+
+  #gh-dark-mode-only:target .divider {
+    stroke: ${colors.dark.divider};
   }
 
   .footer {
     font: 10px sans-serif;
     font-weight: 100;
-    fill: var(--footer-color);
+    fill: ${colors.light.footer};
   }
 
-  .background {
-    fill: var(--background);
+  #gh-dark-mode-only:target .footer {
+    fill: ${colors.dark.footer};
+  }
+
+  #background {
+    fill: ${colors.light.background};
     stroke: rgb(225, 228, 232);
     stroke-width: 0.7px;
     rx: 6px; /* Скругление углов */
     ry: 6px; /* Скругление углов */
   }
 
+  #gh-dark-mode-only:target #background {
+   fill: ${colors.dark.background};
+   }
+
   .ring {
-    stroke: var(--ring-color);
+    stroke: ${colors.light.ring};
+  }
+
+  #gh-dark-mode-only:target .ring {
+    stroke: ${colors.dark.ring};
   }
 
   .fire {
-    fill: var(--fire-color);
+    fill: ${colors.light.fire};
+  }
+
+  #gh-dark-mode-only:target .fire {
+    fill: ${colors.dark.fire};
   }
 
   /* Стили для рамки */
@@ -373,7 +385,7 @@ style="isolation: isolate" viewBox="0 0 600 200" width="600px" height="200px">
 </style>
 
 <!-- Background -->
-<rect width="100%" height="100%" class="background" rx="15" />
+<rect width="100%" height="100%" id="background" rx="15" />
 
 <!-- Border -->
 <rect width="calc(100% - 2px)" height="calc(100% - 2px)" x="1" y="1" class="border" />
