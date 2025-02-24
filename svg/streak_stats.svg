@@ -120,7 +120,7 @@ svg {
     Total Contributions
   </text>
   <text class="date" y="85" text-anchor="middle" style="opacity: 0; animation: fadein 0.5s linear forwards 0.8s">
-    Jul 26, 2021 - Feb 25, 2025
+    Jul 26, 2021 - Feb 24, 2025
   </text>
 </g>
 
@@ -148,7 +148,7 @@ svg {
   </text>
 
   <text class="date" y="95" text-anchor="middle" style="opacity: 0; animation: fadein 0.5s linear forwards 1.0s">
-    Feb 18, 2025 - Feb 25, 2025
+    Feb 18, 2025 - Feb 24, 2025
   </text>
 
   <!-- Fire icon -->
@@ -172,22 +172,20 @@ C 4.51 16.85 2.36 19 -0.29 19 Z"
 <!-- Section 3: Longest Streak -->
 <g transform="translate(500, 70)">
   <text class="stat" y="15" text-anchor="middle" style="opacity: 0; animation: fadein 0.5s linear forwards 1.2s">
-    9
+    8
   </text>
   <text class="label" y="55" text-anchor="middle" style="opacity: 0; animation: fadein 0.5s linear forwards 1.3s">
     Longest Streak
   </text>
   <text class="date" y="85" text-anchor="middle" style="opacity: 0; animation: fadein 0.5s linear forwards 1.4s">
-    Jul 25, 2024 - Aug 2, 2024
+    Jul 26, 2024 - Aug 2, 2024
   </text>
 </g>
 
 <!-- Footer -->
 <g transform="translate(300, 185)">
   <text class="footer" x="0" y="5" text-anchor="middle" style="opacity: 0; animation: fadein 0.5s linear forwards 1.6s">
- Updated last at: Feb 25 2025, 01:24
-
-
+    Updated last at: Feb 25 2025, 01:38
   </text>
 </g>
 </svg>
