@@ -159,13 +159,13 @@ svg {
 <!-- Section 3: Longest Streak -->
 <g transform="translate(412.5, 70)">
   <text class="stat" y="15" text-anchor="middle" style="opacity: 0; animation: fadein 0.5s linear forwards 1.2s">
-    9
+    8
   </text>
   <text class="label" y="55" text-anchor="middle" style="opacity: 0; animation: fadein 0.5s linear forwards 1.3s">
     Longest Streak
   </text>
   <text class="date" y="85" text-anchor="middle" style="opacity: 0; animation: fadein 0.5s linear forwards 1.4s">
-    Jul 25, 2024 - Aug 2, 2024
+    Jul 26, 2024 - Aug 2, 2024
   </text>
 </g>
 
