@@ -1,12 +1,17 @@
-<p align="center">
+
+<table border="0" align="center">
+<td>
 <img src="https://raw.githubusercontent.com/levvolkov/github-stats-svg/main/svg/traffic_stats.svg#gh-dark-mode-only"/>
 <img src="https://raw.githubusercontent.com/levvolkov/github-stats-svg/main/svg/traffic_stats.svg#gh-light-mode-only"/>
-</p>
+</td>
+</table>
 
-<p align="center">
+<table border="0" align="center">
+<td>
 <img src="https://raw.githubusercontent.com/levvolkov/github-stats-svg/main/svg/streak_stats.svg#gh-dark-mode-only"/>
 <img src="https://raw.githubusercontent.com/levvolkov/github-stats-svg/main/svg/streak_stats.svg#gh-light-mode-only"/>
-</p>
+</td>
+</table>
 
 <p align="center">
 <img src="https://raw.githubusercontent.com/levvolkov/github-stats-svg/main/svg/github_stats.svg#gh-dark-mode-only"/>
