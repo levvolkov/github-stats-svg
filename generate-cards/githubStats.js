@@ -2,8 +2,8 @@ const fs = require("fs");
 const path = require("path");
 
 // GitHub username и токен из переменных окружения
-const username = process.env.GITHUB_ACTOR; 
-const token = process.env.ACCESS_TOKEN; 
+const username = process.env.GITHUB_ACTOR;
+const token = process.env.ACCESS_TOKEN;
 
 if (!token) {
   console.error("Ошибка: ACCESS_TOKEN не определен в переменных окружения.");
@@ -13,23 +13,21 @@ if (!token) {
 const GRAPHQL_API = "https://api.github.com/graphql"; // GitHub GraphQL API endpoint
 const REST_API = "https://api.github.com"; // GitHub REST API endpoint
 
-// Цвета для светлой и темной тем
+// Цвета для светлой и темной темы
 const colors = {
   light: {
     background: "none", // Цвет фона
     stroke: "rgb(225, 228, 232)", // Цвет обводки
     title: "rgb(0, 106, 255)", // Цвет заголовка
     textPrimary: "rgb(88, 96, 105)", // Основной цвет текста
-    textSecondary: "#8b949e", // Вторичный цвет текста
     icon: "rgb(88, 96, 105)", // Цвет иконок
   },
   dark: {
-    background: "none", // Цвет фона
-    stroke: "rgba(225, 228, 232, 0.5)", // Цвет обводки
-    title: "#006AFF", // Цвет заголовка
-    textPrimary: "#c9d1d9", // Основной цвет текста
-    textSecondary: "#8b949e", // Вторичный цвет текста
-    icon: "#8b949e", // Цвет иконок
+    background: "none",
+    stroke: "rgba(225, 228, 232, 0.5)",
+    title: "#006AFF",
+    textPrimary: "#c9d1d9",
+    icon: "#8b949e",
   },
 };
 
@@ -54,7 +52,7 @@ class GitHubQueries {
         await new Promise((resolve) => setTimeout(resolve, 1000));
       } else if (!response.ok) {
         const errorText = await response.text();
-        console.error("Ошибка GitHub REST API:", errorText);
+        // console.error("Ошибка GitHub REST API:", errorText);
         throw new Error("Не удалось получить данные из GitHub REST API.");
       }
     } while (response.status === 202);
@@ -87,12 +85,10 @@ class UserStats {
           `/repos/${repo}/stats/contributors`
         );
 
-        console.log(`Данные для репозитория ${repo}:`, r);
+        // console.log(`Данные для репозитория ${repo}:`, r);
 
         if (!Array.isArray(r)) {
-          console.warn(
-            `Пропускаем репозиторий ${repo}: Ответ не является массивом.`
-          );
+          //   console.warn(`Пропускаем репозиторий ${repo}: Ответ не является массивом.`);
           continue;
         }
 
@@ -102,19 +98,17 @@ class UserStats {
             !authorObj.author ||
             typeof authorObj.author !== "object"
           ) {
-            console.warn(
-              `Пропускаем некорректный объект автора в репозитории ${repo}.`
-            );
+            // console.warn(`Пропускаем некорректный объект автора в репозитории ${repo}.`);
             continue;
           }
 
           const author = authorObj.author.login || "";
           if (author !== this.username) {
-            console.log(`Пропускаем автора ${author}, это не ${this.username}`);
+            // console.log(`Пропускаем автора ${author}, это не ${this.username}`);
             continue;
           }
 
-          console.log(`Обрабатываем данные для автора ${author}`);
+          //   console.log(`Обрабатываем данные для автора ${author}`);
 
           for (const week of authorObj.weeks || []) {
             additions += week.a || 0;
@@ -122,10 +116,7 @@ class UserStats {
           }
         }
       } catch (error) {
-        console.error(
-          `Ошибка получения статистики для репозитория ${repo}:`,
-          error.message
-        );
+        // console.error(`Ошибка получения статистики для репозитория ${repo}:`,error.message);
       }
     }
 
@@ -143,12 +134,10 @@ class UserStats {
     for (const repo of await this.repos) {
       try {
         const r = await this.queries.queryRest(`/repos/${repo}/traffic/views`);
-        console.log(`Данные о просмотрах для репозитория ${repo}:`, r);
+        // console.log(`Данные о просмотрах для репозитория ${repo}:`, r);
 
         if (!r.views || !Array.isArray(r.views)) {
-          console.warn(
-            `Пропускаем репозиторий ${repo}: Некорректные данные о просмотрах.`
-          );
+          //   console.warn(`Пропускаем репозиторий ${repo}: Некорректные данные о просмотрах.`);
           continue;
         }
 
@@ -156,10 +145,7 @@ class UserStats {
           total += view.count || 0;
         }
       } catch (error) {
-        console.error(
-          `Ошибка получения просмотров для репозитория ${repo}:`,
-          error.message
-        );
+        // console.error(`Ошибка получения просмотров для репозитория ${repo}:`,error.message);
       }
     }
 
@@ -181,13 +167,13 @@ async function fetchFromGitHub(query, variables = {}) {
 
   if (!response.ok) {
     const errorText = await response.text();
-    console.error("Ошибка GitHub API:", errorText);
+    //console.error("Ошибка GitHub API:", errorText);
     throw new Error("Не удалось получить данные из GitHub API.");
   }
 
   const data = await response.json();
   if (data.errors) {
-    console.error("Ошибка GitHub API:", JSON.stringify(data.errors, null, 2));
+    //console.error("Ошибка GitHub API:", JSON.stringify(data.errors, null, 2));
     throw new Error("Не удалось получить данные из GitHub API.");
   }
   return data.data;
