@@ -128,7 +128,7 @@
         <thead>
           <tr>
             <th style="width: 200px; text-align: left; padding-left: 36.5px;">Repository</th>
-            <th style="width: 145px; text-align: center;">Uniques</th>
+            <th style="width: 145px; text-align: center; padding-right: 28px:">Uniques</th>
             <th style="width: 120px; text-align: center;">Date Range</th>
           </tr>
         </thead>
@@ -143,7 +143,7 @@
       <span style="margin-left: 8px; max-width: 154px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">diplomaProject-QA</span>
     </div>
   </td>
-  <td class="unique-count" style="width: 145px; text-align: center;">7</td>
+  <td class="unique-count" style="width: 145px; text-align: center; padding-right: 28px;">7</td>
   <td class="date-range" style="width: 120px; text-align: center;">25.02 - 08.03</td>
 </tr>
 
@@ -156,7 +156,7 @@
       <span style="margin-left: 8px; max-width: 154px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">github-stats-svg</span>
     </div>
   </td>
-  <td class="unique-count" style="width: 145px; text-align: center;">7</td>
+  <td class="unique-count" style="width: 145px; text-align: center; padding-right: 28px;">7</td>
   <td class="date-range" style="width: 120px; text-align: center;">22.02 - 08.03</td>
 </tr>
 
@@ -169,7 +169,7 @@
       <span style="margin-left: 8px; max-width: 154px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">ui_automator_android_testing</span>
     </div>
   </td>
-  <td class="unique-count" style="width: 145px; text-align: center;">6</td>
+  <td class="unique-count" style="width: 145px; text-align: center; padding-right: 28px;">6</td>
   <td class="date-range" style="width: 120px; text-align: center;">23.02 - 07.03</td>
 </tr>
 
@@ -182,7 +182,7 @@
       <span style="margin-left: 8px; max-width: 154px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">cashBackHacker</span>
     </div>
   </td>
-  <td class="unique-count" style="width: 145px; text-align: center;">5</td>
+  <td class="unique-count" style="width: 145px; text-align: center; padding-right: 28px;">5</td>
   <td class="date-range" style="width: 120px; text-align: center;">23.02 - 06.03</td>
 </tr>
 
@@ -195,7 +195,7 @@
       <span style="margin-left: 8px; max-width: 154px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">autonomous_work_of_telegram_bot_nasa</span>
     </div>
   </td>
-  <td class="unique-count" style="width: 145px; text-align: center;">4</td>
+  <td class="unique-count" style="width: 145px; text-align: center; padding-right: 28px;">4</td>
   <td class="date-range" style="width: 120px; text-align: center;">28.02 - 08.03</td>
 </tr>
 
