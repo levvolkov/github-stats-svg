@@ -145,49 +145,56 @@ async function fetchAllContributions(userCreationDate, now) {
 }
 
 function calculateStreaksAndTotals(allContributionDays) {
-  let currentStreak = 0;
+  // Сначала сортируем дни по дате (на всякий случай)
+  allContributionDays.sort((a, b) => new Date(a.date) - new Date(b.date));
+
   let longestStreak = 0;
-  let currentStreakStart = null;
   let longestStreakStart = null;
   let longestStreakEnd = null;
-  let lastContributedDate = null;
-  const today = new Date().toISOString().split("T")[0];
 
-  allContributionDays.sort((a, b) => new Date(a.date) - new Date(b.date));
+  let currentStreak = 0;
+  let currentStreakStart = null;
+  let lastContributionDate = null;
+
+  const today = new Date().toISOString().split("T")[0];
 
   for (const { date, contributionCount } of allContributionDays) {
     if (date > today) continue;
-    const currentDay = new Date(date);
-    const dayOfWeek = currentDay.getUTCDay();
-    const isWeekend = dayOfWeek === 0 || dayOfWeek === 6;
-
     if (contributionCount > 0) {
-      if (!lastContributedDate || isNextDay(lastContributedDate, date)) {
-        currentStreak++;
-        if (currentStreak === 1) currentStreakStart = date;
-      } else {
+      if (!lastContributionDate) {
+        // Первый вклад
         currentStreak = 1;
         currentStreakStart = date;
+      } else {
+        const prev = new Date(lastContributionDate);
+        const curr = new Date(date);
+        const diffDays = Math.floor((curr - prev) / (1000 * 60 * 60 * 24));
+        if (diffDays === 1) {
+          // Продолжаем streak
+          currentStreak++;
+        } else {
+          // Новый streak
+          currentStreak = 1;
+          currentStreakStart = date;
+        }
       }
-      lastContributedDate = date;
+      // Проверяем на longest streak
       if (currentStreak > longestStreak) {
         longestStreak = currentStreak;
         longestStreakStart = currentStreakStart;
         longestStreakEnd = date;
       }
-    } else if (isWeekend) {
-      currentStreak++;
-    } else {
-      currentStreak = 0;
-      currentStreakStart = null;
-      lastContributedDate = null;
+      lastContributionDate = date;
     }
   }
 
+  // Определяем, streak ли продолжается до сегодня
+  let isCurrentStreakActive = lastContributionDate === today;
+
   return {
-    currentStreak,
+    currentStreak: isCurrentStreakActive ? currentStreak : 0,
+    currentStreakStart: isCurrentStreakActive ? currentStreakStart : null,
     longestStreak,
-    currentStreakStart,
     longestStreakStart,
     longestStreakEnd,
   };
