@@ -1,7 +1,6 @@
 const fs = require("fs");
 const path = require("path");
 
-// GitHub username и токен из переменных окружения
 const username = process.env.GITHUB_ACTOR;
 const token = process.env.ACCESS_TOKEN;
 
@@ -10,26 +9,26 @@ if (!token) {
   process.exit(1);
 }
 
-const REST_API = "https://api.github.com"; // GitHub REST API endpoint
+const REST_API = "https://api.github.com";
 
-// Цвета для светлой и темной темы
+// Colors for light and dark theme (Цвета для светлой и темной темы)
 const colors = {
   light: {
-    background: "none", // Фоновый цвет
-    stroke: "none", // Цвет обводки svg "rgb(225, 228, 232)",
-    iconGithub: "rgb(88, 96, 105)", // Цвет иконки GitHub
-    titleCards: "#006AFF", // Цвет текста заголовка
-    textTitle: "#FFFFFF", // Цвет заголовков столбцов статистики
-    borderColor: "rgb(88, 96, 105)", // Цвет обовдки заголовков столбцов статистики
-    folderIcons: "rgb(88, 96, 105)", // Цвет заливки иконок папок
-    folderIconOutline: "rgb(88, 96, 105)", // Цвет обводки иконок папок
-    repositoryText: "#000000", // Цвет названия репозитория
-    uniqueCount: "#000000", // Цвет кол-ва посетителей
-    dateRange: "#000000", // Цвет диапазона дат
+    background: "none", // Background color (Фоновый цвет)
+    stroke: "none", // Outline color (Цвет обводки)
+    iconGithub: "rgb(88, 96, 105)", // GitHub Icon Color (Цвет иконки GitHub)
+    titleCards: "#006AFF", // Header Text Color (Цвет текста заголовка)
+    textTitle: "#FFFFFF", // Color of statistics column headers (Цвет заголовков столбцов статистики)
+    borderColor: "rgb(88, 96, 105)", // Border color of statistics column headers (Цвет обовдки заголовков столбцов статистики)
+    folderIcons: "rgb(88, 96, 105)", // Folder Icon Fill Color (Цвет заливки иконок папок)
+    folderIconOutline: "rgb(88, 96, 105)", // Folder Icon Outline Color (Цвет обводки иконок папок)
+    repositoryText: "#000000", // Repository name color (Цвет названия репозитория)
+    uniqueCount: "#000000", // Color of number of visitors (Цвет кол-ва посетителей)
+    dateRange: "#000000", // Date range color (Цвет диапазона дат)
   },
   dark: {
     background: "none",
-    stroke: "none", //  rgba(225, 228, 232, 0.5)
+    stroke: "none",
     iconGithub: "#8b949e",
     titleCards: "#006AFF",
     textTitle: "#000000",
@@ -42,7 +41,6 @@ const colors = {
   },
 };
 
-// Класс для работы с REST API
 class GitHubQueries {
   constructor(token) {
     this.token = token;
@@ -69,7 +67,6 @@ class GitHubQueries {
   }
 }
 
-// Функция для получения списка репозиториев
 async function getRepos(username, queries) {
   const repos = [];
   let page = 1;
@@ -82,7 +79,7 @@ async function getRepos(username, queries) {
     if (response.length === 0) {
       hasMore = false;
     } else {
-      repos.push(...response.map((repo) => repo.name)); // Используем только имя репозитория
+      repos.push(...response.map((repo) => repo.name));
       page++;
     }
   }
@@ -90,7 +87,6 @@ async function getRepos(username, queries) {
   return repos;
 }
 
-// Функция для получения статистики просмотров репозиториев
 async function getRepoViews(repos, queries) {
   const repoStats = [];
 
@@ -124,26 +120,21 @@ async function getRepoViews(repos, queries) {
           dateRange,
         });
       }
-    } catch (error) {
-      // Логирование ошибок отключено для безопасности
-    }
+    } catch (error) {}
   }
 
   return repoStats;
 }
 
-// Функция для генерации SVG на основе статистики
 function generateSVG(repoStats) {
   const sortedStats = repoStats.sort((a, b) => b.uniques - a.uniques);
   const topRepos = sortedStats.slice(0, 5);
 
-  // Фиксированные ширины колонок
   const iconColumnWidth = 30;
   const repoColumnWidth = 200;
   const uniquesColumnWidth = 145;
   const dateColumnWidth = 120;
 
-  // Проверка, что topRepos является массивом
   const rows = Array.isArray(topRepos) ? topRepos : [];
 
   const rowsHTML = rows
@@ -317,27 +308,17 @@ function generateSVG(repoStats) {
 `;
 }
 
-// Основная функция для получения статистики и генерации SVG
 async function main() {
   try {
     const queries = new GitHubQueries(token);
-
-    // Получаем список репозиториев
     const repos = await getRepos(username, queries);
-
-    // Получаем статистику просмотров для каждого репозитория
     const repoStats = await getRepoViews(repos, queries);
-
-    // Генерация SVG
     const svg = generateSVG(repoStats);
-
-    // Создание папки svg, если она не существует
     const svgDir = path.resolve(__dirname, "..", "svg");
     if (!fs.existsSync(svgDir)) {
       fs.mkdirSync(svgDir, { recursive: true });
     }
 
-    // Сохранение SVG в файл
     const svgFilePath = path.join(svgDir, "traffic_stats.svg");
     fs.writeFileSync(svgFilePath, svg);
     console.log("Создан svg файл: traffic_stats.svg");

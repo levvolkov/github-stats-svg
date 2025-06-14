@@ -2,8 +2,8 @@ const fs = require("fs");
 const path = require("path");
 
 const username = process.env.GITHUB_ACTOR;
-const token = process.env.ACCESS_TOKEN; 
-const exclusionThreshold = 0.9; // Исключить языки, занимающие более 90%
+const token = process.env.ACCESS_TOKEN;
+const exclusionThreshold = 0.9;
 
 if (!token) {
   console.error(
@@ -12,31 +12,30 @@ if (!token) {
   process.exit(1);
 }
 
-const GRAPHQL_API = "https://api.github.com/graphql"; // GitHub GraphQL API endpoint
+const GRAPHQL_API = "https://api.github.com/graphql";
 
-// Цвета для светлой и темной тем
+// Colors for light and dark themes (Цвета для светлой и темной тем)
 const colors = {
   light: {
-    background: "none", // Прозрачный фон
-    title: "#006AFF", // Цвет заголовка
-    lang: "#000000", // Цвет текста языка
-    percent: "rgb(88, 96, 105)", // Цвет процентов
-    outline: "rgb(225, 228, 232)", // Цвет обводки
-    progressBackground: "#e1e4e8", // Цвет фона прогресс-бара
-    progressItemOutline: "rgb(225, 228, 232)", // Цвет обводки элементов прогресс-бара
+    background: "none", // Background color (Цвет фона)
+    title: "#006AFF", // Header color (Цвет заголовка)
+    lang: "#000000", // Language text color (Цвет текста языка)
+    percent: "rgb(88, 96, 105)", // Color of percentages (Цвет процентов)
+    outline: "rgb(225, 228, 232)", // Outline color (Цвет обводки)
+    progressBackground: "#e1e4e8", // Progress bar background color (Цвет фона прогресс-бара)
+    progressItemOutline: "rgb(225, 228, 232)", // Progress bar element outline color (Цвет обводки элементов прогресс-бара)
   },
   dark: {
-    background: "none", // Прозрачный фон
-    title: "#006AFF", // Цвет заголовка
-    lang: "#c9d1d9", // Цвет текста языка
-    percent: "#8b949e", // Цвет процентов
-    outline: "rgb(225, 228, 232)", // Цвет обводки
-    progressBackground: "rgba(110, 118, 129, 0.4)", // Цвет фона прогресс-бара
-    progressItemOutline: "#393f47", // Цвет обводки элементов прогресс-бара
+    background: "none",
+    title: "#006AFF",
+    lang: "#c9d1d9",
+    percent: "#8b949e",
+    outline: "rgb(225, 228, 232)",
+    progressBackground: "rgba(110, 118, 129, 0.4)",
+    progressItemOutline: "#393f47",
   },
 };
 
-// Функция для выполнения запросов к GitHub GraphQL API
 async function fetchFromGitHub(query, variables = {}) {
   const response = await fetch(GRAPHQL_API, {
     method: "POST",
@@ -61,7 +60,6 @@ async function fetchFromGitHub(query, variables = {}) {
   return data.data;
 }
 
-// Функция для получения списка языков и их цветов из репозиториев пользователя
 async function fetchTopLanguages() {
   const query = `
     query {
@@ -86,7 +84,6 @@ async function fetchTopLanguages() {
   const data = await fetchFromGitHub(query);
   const languages = {};
 
-  // Обработка данных: суммируем размеры языков и сохраняем их цвета
   for (const repo of data.user.repositories.nodes) {
     for (const langEdge of repo.languages.edges) {
       const lang = langEdge.node.name;
@@ -100,7 +97,6 @@ async function fetchTopLanguages() {
     }
   }
 
-  // Фильтрация языков по порогу исключения
   const totalBytes = Object.values(languages).reduce(
     (sum, lang) => sum + lang.size,
     0
@@ -121,10 +117,9 @@ async function fetchTopLanguages() {
   return filteredLanguages;
 }
 
-// Функция для генерации SVG с прогресс-баром и списком языков
 function generateSVG(languageStats) {
-  const svgWidth = 360; // Ширина SVG
-  const svgHeight = 210; // Высота SVG
+  const svgWidth = 360;
+  const svgHeight = 210;
 
   let svgContent = `<svg id="gh-dark-mode-only" width="${svgWidth}" height="${svgHeight}" xmlns="http://www.w3.org/2000/svg">
 <style>
@@ -295,39 +290,23 @@ fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8z"></path></svg>
   return svgContent;
 }
 
-// Основная функция для создания SVG
 async function createLanguageStatisticsSVG() {
   try {
-    const languageStats = await fetchTopLanguages(); // Получаем данные о языках
-    const svg = generateSVG(languageStats); // Генерируем SVG
+    const languageStats = await fetchTopLanguages();
+    const svg = generateSVG(languageStats);
 
-    // Путь к папке "svg"
     const dir = "svg";
 
-    // Проверяем, существует ли папка "svg". Если нет, создаем её.
     if (!fs.existsSync(dir)) {
       fs.mkdirSync(dir);
     }
 
-    // Сохраняем SVG в файл внутри папки "svg"
     const filePath = path.join(dir, "language_stats.svg");
     fs.writeFileSync(filePath, svg);
 
     console.log(`Создан svg файл: ${filePath}`);
   } catch (error) {
     console.error("Error generating SVG:", error);
-
-    // Генерация резервного SVG в случае ошибки
-    const fallbackSVG = `
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 200">
-          <rect width="100%" height="100%" fill="#f0f6fc" rx="10" />
-          <text x="50%" y="45%" text-anchor="middle" font-family="sans-serif" fill="#000" font-size="16">
-            Error loading GitHub stats
-          </text>
-        </svg>`;
-
-    const fallbackPath = path.join("svg", "error_language_stats.svg");
-    fs.writeFileSync(fallbackPath, fallbackSVG);
   }
 }
 

@@ -1,7 +1,6 @@
 const fs = require("fs");
 const path = require("path");
 
-// GitHub username и токен из переменных окружения
 const username = process.env.GITHUB_ACTOR;
 const token = process.env.ACCESS_TOKEN;
 
@@ -10,17 +9,17 @@ if (!token) {
   process.exit(1);
 }
 
-const GRAPHQL_API = "https://api.github.com/graphql"; // GitHub GraphQL API endpoint
-const REST_API = "https://api.github.com"; // GitHub REST API endpoint
+const GRAPHQL_API = "https://api.github.com/graphql";
+const REST_API = "https://api.github.com";
 
-// Цвета для светлой и темной темы
+// Colors for light and dark themes (Цвета для светлой и темной темы)
 const colors = {
   light: {
-    background: "none", // Цвет фона
-    stroke: "rgb(225, 228, 232)", // Цвет обводки
-    title: "rgb(0, 106, 255)", // Цвет заголовка
-    textPrimary: "rgb(88, 96, 105)", // Основной цвет текста
-    icon: "rgb(88, 96, 105)", // Цвет иконок
+    background: "none", // Background color (Цвет фона)
+    stroke: "rgb(225, 228, 232)", // Outline color (Цвет обводки)
+    title: "rgb(0, 106, 255)", // Header color (Цвет заголовка)
+    textPrimary: "rgb(88, 96, 105)", // Main text color (Цвет основного текста
+    icon: "rgb(88, 96, 105)", // Color of icons (Цвет иконок)
   },
   dark: {
     background: "none",
@@ -31,7 +30,6 @@ const colors = {
   },
 };
 
-// Класс для работы с REST API
 class GitHubQueries {
   constructor(token) {
     this.token = token;
@@ -48,11 +46,9 @@ class GitHubQueries {
       });
 
       if (response.status === 202) {
-        // Данные еще не готовы, ждем 1 секунду и повторяем запрос
         await new Promise((resolve) => setTimeout(resolve, 1000));
       } else if (!response.ok) {
         const errorText = await response.text();
-        // console.error("Ошибка GitHub REST API:", errorText);
         throw new Error("Не удалось получить данные из GitHub REST API.");
       }
     } while (response.status === 202);
@@ -61,7 +57,6 @@ class GitHubQueries {
   }
 }
 
-// Класс для получения статистики
 class UserStats {
   constructor(username, queries, repos) {
     this.username = username;
@@ -349,7 +344,7 @@ async function main() {
         0
       ),
       contributions: user.contributionsCollection.totalCommitContributions,
-      linesChanged: totalLinesChanged, // Общее количество изменений
+      linesChanged: totalLinesChanged,
       views: views,
       repos: user.repositories.totalCount,
     };

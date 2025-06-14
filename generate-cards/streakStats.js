@@ -13,32 +13,31 @@ if (!token) {
 
 const GRAPHQL_API = "https://api.github.com/graphql";
 
-// Цвета для светлой и темной темы
+// Colors for light and dark theme (Цвета для светлой и темной темы)
 const colors = {
   light: {
-    background: "none", // Прозрачный фон
-    stroke: "none", // Цвет обводки svg rgb(225, 228, 232)",
-    stat: "#000000", // Цвет статистики
-    label: "#000000", // Цвет меток
-    date: "#006AFF", // Цвет дат
-    divider: "#006AFF", // Цвет разделителей
-    ring: "#006AFF", // Цвет кольца
-    fire: "#006AFF", // Цвет иконки огня
-    footer: "#000000", // Цвет футера
+    background: "none", // Background color (Цвет фона)
+    stroke: "none", // Outline color (Цвет обводки)
+    stat: "#000000", // Color of statistics (Цвет статистики)
+    label: "#000000", // Color of labels (Цвет меток)
+    date: "#006AFF", // Color of dates (Цвет дат)
+    divider: "#006AFF", // Color of dividers (Цвет разделителей)
+    ring: "#006AFF", // Ring color (Цвет кольца)
+    fire: "#006AFF", // Fire icon color (Цвет иконки огня)
+    footer: "#000000", // Footer color (Цвет футера)
   },
   dark: {
-    background: "none", // Прозрачный фон
-    stat: "#c9d1d9", // Цвет статистики
-    label: "#c9d1d9", // Цвет меток
-    date: "#006AFF", // Цвет дат
-    divider: "#006AFF", // Цвет разделителей
-    ring: "#006AFF", // Цвет кольца
-    fire: "#006AFF", // Цвет иконки огня
-    footer: "#c9d1d9", // Цвет футера
+    background: "none",
+    stat: "#c9d1d9",
+    label: "#c9d1d9",
+    date: "#006AFF",
+    divider: "#006AFF",
+    ring: "#006AFF",
+    fire: "#006AFF",
+    footer: "#c9d1d9",
   },
 };
 
-// Вспомогательная функция для выполнения запросов GraphQL
 async function fetchFromGitHub(query, variables = {}) {
   const response = await fetch(GRAPHQL_API, {
     method: "POST",
@@ -63,7 +62,6 @@ async function fetchFromGitHub(query, variables = {}) {
   return data.data;
 }
 
-// Функция для получения даты создания аккаунта пользователя
 async function fetchUserCreationDate() {
   const query = `
     query ($username: String!) {
@@ -78,7 +76,6 @@ async function fetchUserCreationDate() {
   return new Date(data.user.createdAt);
 }
 
-// Вспомогательная функция для получения максимального 1-летнего периода вкладов
 async function fetchContributionsForPeriod(fromDate, toDate) {
   const query = `
     query ($username: String!, $from: DateTime!, $to: DateTime!) {
@@ -108,7 +105,6 @@ async function fetchContributionsForPeriod(fromDate, toDate) {
   return data.user.contributionsCollection.contributionCalendar;
 }
 
-// Функция для получения всех вкладов пользователя с момента первого вклада до настоящего времени, по годам
 async function fetchAllContributions(userCreationDate, now) {
   let currentStart = new Date(userCreationDate);
   let allContributionDays = [];
@@ -145,7 +141,6 @@ async function fetchAllContributions(userCreationDate, now) {
 }
 
 function calculateStreaksAndTotals(allContributionDays) {
-  // Сначала сортируем дни по дате (на всякий случай)
   allContributionDays.sort((a, b) => new Date(a.date) - new Date(b.date));
 
   let longestStreak = 0;
@@ -162,7 +157,6 @@ function calculateStreaksAndTotals(allContributionDays) {
     if (date > today) continue;
     if (contributionCount > 0) {
       if (!lastContributionDate) {
-        // Первый вклад
         currentStreak = 1;
         currentStreakStart = date;
       } else {
@@ -170,15 +164,12 @@ function calculateStreaksAndTotals(allContributionDays) {
         const curr = new Date(date);
         const diffDays = Math.floor((curr - prev) / (1000 * 60 * 60 * 24));
         if (diffDays === 1) {
-          // Продолжаем streak
           currentStreak++;
         } else {
-          // Новый streak
           currentStreak = 1;
           currentStreakStart = date;
         }
       }
-      // Проверяем на longest streak
       if (currentStreak > longestStreak) {
         longestStreak = currentStreak;
         longestStreakStart = currentStreakStart;
@@ -188,7 +179,6 @@ function calculateStreaksAndTotals(allContributionDays) {
     }
   }
 
-  // Определяем, streak ли продолжается до сегодня
   let isCurrentStreakActive = lastContributionDate === today;
 
   return {
@@ -276,18 +266,18 @@ async function generateSVG() {
           )}`
         : "N/A";
 
-    // Форматирование времени для "Updated last at"
+    // Formatting time for "Updated last at" (Форматирование времени для "Updated last at")
     const lastUpdate = new Date()
       .toLocaleString("en", {
-        timeZone: "Europe/Moscow",
+        timeZone: "Europe/Moscow", // Time Zone (Часовой пояс)
         day: "2-digit",
         month: "short",
         year: "numeric",
         hour: "2-digit",
         minute: "2-digit",
-        hour12: false, // Используем 24-часовой формат
+        hour12: false,
       })
-      .replace(",", ""); // Убираем запятую после года
+      .replace(",", "");
 
     let svgContent = `<svg id="gh-dark-mode-only" width="495" height="195" xmlns="http://www.w3.org/2000/svg">
 <style>
@@ -475,7 +465,6 @@ svg {
 </svg>
 `;
 
-    // Сохраняем в папку svg
     const outputPath = path.join("svg", "streak_stats.svg");
     fs.writeFileSync(outputPath, svgContent);
     console.log(`Создан svg файл: ${outputPath}`);
@@ -484,12 +473,10 @@ svg {
   }
 }
 
-// Вспомогательная функция для проверки, являются ли две даты последовательными
 function isNextDay(previousDate, currentDate) {
   const prev = new Date(previousDate);
   const curr = new Date(currentDate);
 
-  // Нормализовать обе даты до полуночи по времени UTC
   const prevUTC = Date.UTC(
     prev.getUTCFullYear(),
     prev.getUTCMonth(),
