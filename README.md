@@ -86,7 +86,7 @@ Generate SVG cards with GitHub statistics (commits, stars, unique visitors, and 
 
 ## Customizing SVG Styles
 
-The appearance settings are stored directly in the generator files. You can easily change the [colors](https://colorscheme.ru/html-colors.html), add a border, set a card background, or change the time zone in the [`streakStats.js`](generate-cards/streakStats.js#L274) card to any of the [supported time zones](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones) by editing the relevant variables in these files:
+The appearance settings are stored directly in the generator files. You can easily change the [colors](https://colorscheme.ru/html-colors.html), add a border, set a card background, or change the time zone in the [`streakStats.js`](generate-cards/streakStats.js#L272) card to any of the [supported time zones](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones) by editing the relevant variables in these files:
 
 1. **Where to configure**
 
